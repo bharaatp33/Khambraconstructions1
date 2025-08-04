@@ -1,0 +1,379 @@
+Absolutely! Here’s a **modern, high-end, interactive website** code for **Khambra Developers and Construction** that fits your demand for:
+
+* Smooth animations
+* Responsive hamburger menu
+* Interactive sliding gallery with hover panels
+* Modern dark theme with elegant bronze accents
+* Sections: Home, About Us, Services, Projects (with slider), Careers, Sustainability, Contact
+* Footer with social icons and company info (ACN, ABN, Indian Steel Pty Ltd)
+
+---
+
+## Full `index.html` with CSS & JS inline for easy deployment on GitHub Pages or anywhere:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Khambra Developers and Construction</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Reset & basics */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      scroll-behavior: smooth;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      width: 100%;
+      background: #1f1f1f;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 900;
+      color: #caa974;
+      letter-spacing: 2px;
+      font-size: 1.6rem;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      color: #eee;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: #caa974;
+      width: 0;
+      transition: width 0.3s ease;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #caa974;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    /* Hamburger for mobile */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: #caa974;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Hero section */
+    .hero {
+      background: url('https://source.unsplash.com/1600x700/?architecture,building') center/cover no-repeat;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      margin-top: 72px;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin: 0;
+      color: #caa974;
+      text-shadow: 1px 1px 8px #000;
+      animation: fadeInUp 1s ease forwards;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin: 0.5rem 0 0;
+      color: #f0e8d0;
+      max-width: 600px;
+      text-shadow: 1px 1px 6px #000;
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+    }
+    .hero p.show {
+      opacity: 1;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Sections */
+    section {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #caa974;
+      border-bottom: 2px solid #caa974;
+      padding-bottom: 0.25rem;
+      user-select: none;
+    }
+    section p, section ul {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ddd;
+      user-select: text;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Projects slider */
+    .gallery {
+      position: relative;
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .gallery-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item {
+      min-width: 300px;
+      margin-right: 1rem;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+      background: #222;
+      flex-shrink: 0;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .hover-info {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(42, 26, 8, 0.9), transparent);
+      color: #caa974;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      user-select: none;
+    }
+    .gallery-item:hover .hover-info {
+      opacity: 1;
+    }
+
+    /* Slider buttons */
+    .gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(202, 169, 116, 0.8);
+      border: none;
+      color: #121212;
+      font-size: 2rem;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    .gallery-btn:hover {
+      background: #caa974;
+      color: #000;
+    }
+    .gallery-btn.prev {
+      left: 10px;
+    }
+    .gallery-btn.next {
+      right: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a1a1a;
+      color: #bbb;
+      text-align: center;
+      padding: 2rem 1rem;
+      user-select: none;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+    .social-icons {
+      margin: 1rem 0 0;
+    }
+    .social-icons a {
+      color: #caa974;
+      font-size: 1.8rem;
+      margin: 0 0.75rem;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+    .social-icons a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #1f1f1f;
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0;
+        display: none;
+        z-index: 999;
+      }
+      nav.show {
+        display: flex;
+      }
+      nav a {
+        padding: 1rem 2rem;
+        border-top: 1px solid #2c2c2c;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .gallery-item {
+        min-width: 90vw;
+        margin-right: 0.5rem;
+      }
+      .gallery-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Khambra Developers</h1>
+    <div class="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0" onclick="toggleMenu()" onkeypress="if(event.key==='Enter'){toggleMenu()}">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav id="nav-menu" aria-label="Primary Navigation">
+      <a href="#home" tabindex="0">Home</a>
+      <a href="#about" tabindex="0">About Us</a>
+      <a href="#services" tabindex="0">Services</a>
+      <a href="#projects" tabindex="0">Projects</a>
+      <a href="#careers" tabindex="0">Careers</a>
+      <a href="#contact" tabindex="0">Contact</a>
+      <a href="#sustainability" tabindex="0">Sustainability</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero" role="banner" aria-label="Hero banner with headline">
+      <h2>35+ Years of Family Construction Legacy</h2>
+      <p class="hero-subtitle">Australia & India | Residential | Engineering | Custom Homes</p>
+    </section>
+
+    <section id="about" tabindex="0">
+      <h3>About Us</h3>
+      <p>
+        Khambra Developers and Construction, a part of Indian Steel Pty Ltd (ACN 680320361, ABN 93680320361),
+        brings over three decades of trusted construction experience. Operating across Melbourne, Brisbane,
+        Townsville, and Darwin, we specialize in custom home builds, procurement, architectural design,
+        and B2B consultancy. Our peer network bridges India and Australia’s finest engineering minds.
+      </p>
+    </section>
+
+    <section id="services" tabindex="0">
+      <h3>Our Services</h3>
+      <ul>
+        <li>Construction Management & Consultancy</li>
+        <li>Custom Home Builds & Architectural Design</li>
+        <li>Engineering & Procurement Networks</li>
+        <li>Commission-based B2B Solutions</li>
+      </ul>
+    </section>
+
+    <section id="projects" tabindex="0" aria-label="Project gallery with sliding images">
+      <h3>Our Projects</h3>
+      <div class="gallery" aria-live="polite" aria-atomic="true">
+        <button class="gallery-btn prev" aria-label="Previous project" onclick="slidePrev()">‹</button>
+        <div class="gallery-track" id="gallery-track" tabindex="0">
+          <div class="gallery-item" tabindex="0">
+            <img src="https://source.unsplash.com/500x300/?luxury-home" alt="Luxury Custom Villa, Melbourne" />
+            <div class="hover-info">Luxury Custom Villa, Melbourne</div>
+          </div>
+          <div class="gallery-item" tabindex="0">
+            <img src="https://source.unsplash.com/500x300/?construction,city" alt="Urban High-Rise Design, Brisbane" />
+            <div class="hover-info">Urban High-Rise Design, Brisbane</div>
+          </div>
+          <div class="gallery-item" tabindex="0">
+            <img src="https://source.unsplash.com/500x300/?architecture,glass" alt="Sustainable Office Build, Darwin" />
+            <div class="hover-info">Sustainable Office Build, Darwin</div>
+          </div>
+          <div class="gallery-item" tabindex="0">
+            <img src="https://source.unsplash.com/500x300/?modern-building" alt="Contemporary Residential Complex, Townsville" />
+            <div class="hover-info">Contemporary Residential Complex, Townsville</div>
+          </div>
+          <div class="gallery-item" tabindex="0">
+            <img src="https://source.unsplash.com/500x300/?building,steel" alt="High-End Steel Structure, Melbourne" />
+            <div class="hover-info">High-End Steel Structure, Melbourne</div>
+          </div>
+        </div>
+        <button class="gallery-btn next" aria-label="Next project" onclick="slideNext()">›</button>
+      </div>
+    </section>
+
+    <section id="careers" tabindex="0">
+      <h3>Careers</h3>
+      <p>Join our elite construction and engineering team. We're hiring across project management, architecture, and digital procurement. Work with top-tier professionals in Australia and India.</p>
+    </section>
+
+    <section id="sustainability" tabindex="0">
+      <h3>Sustainability</h3
+```
